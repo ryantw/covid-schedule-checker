@@ -9,7 +9,9 @@ else
     currentdate=`date --rfc-3339=date`
 fi
 coordinates='37.7030051 -85.8647201
-36.972813 -86.4549821'
+36.972813 -86.4549821
+37.2821868 -85.9171529
+38.1558676 -85.695275'
 
 echo "$coordinates" |
 	while read line; do

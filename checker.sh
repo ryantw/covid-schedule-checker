@@ -3,7 +3,11 @@
 pname=`basename $0 .sh`
 
 walgreensapi='https://www.walgreens.com/hcschedulersvc/svc/v1/immunizationLocations/availability'
-currentdate=`date --rfc-3339=date`
+if [ `uname -s` == 'Darwin' ]; then
+    currentdate=`date "+%Y-%m-%d"`
+else
+    currentdate=`date --rfc-3339=date`
+fi
 coordinates='37.7030051 -85.8647201
 36.972813 -86.4549821'
 
@@ -21,7 +25,7 @@ echo "$coordinates" |
 		payload='{ "serviceId": "99", "position": { "latitude": '$lat', "longitude": '$long' }, "appointmentAvailability":{"startDateTime": "'$currentdate'"},"radius": 25}'
 
 		curl -sS -X POST $walgreensapi -H 'Content-Type: application/json' -d "$payload" -o $tmpfile
-		cat "$tmpfile"|json_pp	
+		cat "$tmpfile"|json_pp
 		rm "$tmpfile"
 	done
 
